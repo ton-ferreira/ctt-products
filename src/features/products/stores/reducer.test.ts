@@ -1,3 +1,4 @@
+import { Product, ProductsState } from "../types";
 import {
   addProduct,
   deleteProduct,
@@ -8,7 +9,7 @@ import {
 } from "./productActions";
 import { productsReducer } from "./productReducer";
 
-const mockProduct = {
+const mockProduct: Product = {
   id: "c112bd93-7792-4afa-8bea-aa1b6ccdfb75",
   stock: 1,
   description: "Some nice product",
@@ -38,7 +39,7 @@ describe("productsReducer", () => {
   });
 
   it("should ignore delete if product ID is not found", () => {
-    const state = {
+    const state: ProductsState = {
       ...initialState,
       items: [mockProduct],
     };
@@ -50,7 +51,7 @@ describe("productsReducer", () => {
   });
 
   it("shoudl remove the product with the given ID when DELETE_PRODUCT is dispatched", () => {
-    const state = {
+    const state: ProductsState = {
       ...initialState,
       items: [mockProduct],
     };
@@ -64,7 +65,7 @@ describe("productsReducer", () => {
       ...mockProduct,
       description: "Updated product",
     };
-    const state = {
+    const state: ProductsState = {
       ...initialState,
       items: [mockProduct],
     };
@@ -74,7 +75,7 @@ describe("productsReducer", () => {
   });
 
   it("should ignore the update if product ID is not found", () => {
-    const state = {
+    const state: ProductsState = {
       ...initialState,
       items: [mockProduct],
     };
