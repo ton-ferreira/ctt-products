@@ -1,4 +1,4 @@
-import { Product, ProductsState } from "../../types";
+import { Product, ProductsState } from "../types/products";
 import {
   addProduct,
   deleteProduct,

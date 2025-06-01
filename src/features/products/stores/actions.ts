@@ -12,7 +12,7 @@ import {
   AddProductAction,
   UpdateProductAction,
   DeleteProductAction,
-} from "../types";
+} from "./types/products";
 
 export const setProducts = (products: Product[]): SetProductsAction => ({
   type: SET_PRODUCTS,
