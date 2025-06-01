@@ -1,5 +1,6 @@
 import { RootState } from "../../../../store";
 import { Product } from "../../types";
+import { getProductById } from "../selectors";
 
 const mockProducts: Product[] = [
   {
