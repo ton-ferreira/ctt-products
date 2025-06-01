@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { store } from "../../../store";
 import * as api from "../../../features/products/api";
 import { Product } from "../../../features/products/stores/types/products";
+import Home from "../Home";
 
 const mockProduct: Product = {
   id: "c112bd93-7792-4afa-8bea-aa1b6ccdfb75",
@@ -30,7 +31,7 @@ describe("Home page", () => {
     jest.spyOn(api, "fetchProducts").mockResolvedValueOnce([mockProduct]);
     renderHome();
     await waitFor(() => {
-      expect(screen.getByText(/Some nice product/i));
+      expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
     });
   });
 
