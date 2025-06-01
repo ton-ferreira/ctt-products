@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import EmptyCard from "./EmptyCard";
 
 describe("EmptyCard", () => {
   it("should render title and description", () => {
