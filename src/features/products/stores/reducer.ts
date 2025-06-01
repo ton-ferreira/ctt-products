@@ -7,7 +7,7 @@ import {
   ADD_PRODUCT,
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
-} from "../types";
+} from "./types/products";
 
 const initialState: ProductsState = {
   items: [],

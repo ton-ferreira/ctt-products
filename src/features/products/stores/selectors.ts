@@ -1,5 +1,5 @@
 import { RootState } from "../../../store";
-import { Product } from "../types";
+import { Product } from "./types/products";
 
 export const getProductById = (
   state: RootState,
