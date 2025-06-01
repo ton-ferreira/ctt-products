@@ -1,4 +1,4 @@
-import { Product, ProductsState } from "../types";
+import { Product, ProductsState } from "../../types";
 import {
   addProduct,
   deleteProduct,
@@ -6,8 +6,8 @@ import {
   setLoading,
   setProducts,
   updateProduct,
-} from "./productActions";
-import { productsReducer } from "./productReducer";
+} from "../actions";
+import { productsReducer } from "../reducer";
 
 const mockProduct: Product = {
   id: "c112bd93-7792-4afa-8bea-aa1b6ccdfb75",
