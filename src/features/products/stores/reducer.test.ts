@@ -1,3 +1,13 @@
+import {
+  addProduct,
+  deleteProduct,
+  setError,
+  setLoading,
+  setProducts,
+  updateProduct,
+} from "./productActions";
+import { productsReducer } from "./productReducer";
+
 const mockProduct = {
   id: "c112bd93-7792-4afa-8bea-aa1b6ccdfb75",
   stock: 1,
