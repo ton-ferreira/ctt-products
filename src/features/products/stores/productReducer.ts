@@ -12,7 +12,7 @@ import {
 const initialState: ProductsState = {
   items: [],
   loading: false,
-  error: null,
+  error: "",
 };
 
 export function productsReducer(
