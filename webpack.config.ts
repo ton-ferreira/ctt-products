@@ -43,6 +43,7 @@ const config: Configuration = {
     static: {
       directory: path.resolve(__dirname, "public"),
     },
+    historyApiFallback: true,
   },
   mode: "development",
 };
