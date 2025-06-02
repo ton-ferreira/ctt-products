@@ -12,14 +12,6 @@ jest.mock("../../../features/products/hooks/useProductActions", () => ({
 
 const mockGetAllProducts = jest.fn();
 
-const mockProduct = {
-  id: "123",
-  description: "Test product",
-  price: 9.99,
-  stock: 2,
-  categories: [],
-};
-
 function renderHome() {
   return render(
     <Provider store={store}>

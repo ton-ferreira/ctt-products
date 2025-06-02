@@ -33,7 +33,12 @@ function ProductListItem({ product }: IProductListItemProps) {
       </div>
 
       <div className="product-action-btn-container">
-        <button onClick={() => navigate(`product/${product.id}`)}>Edit</button>
+        <button
+          onClick={() => navigate(`product/${product.id}`)}
+          className="secondary"
+        >
+          Edit
+        </button>
         <button onClick={() => removeProduct(product.id)}>Remove</button>
       </div>
     </li>
