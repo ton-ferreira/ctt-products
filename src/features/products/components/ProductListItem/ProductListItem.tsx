@@ -1,6 +1,7 @@
 import { CategoryLabels } from "../../stores/types/categories";
 import { Product } from "../../stores/types/products";
 import useProductActions from "../../hooks/useProductActions";
+import { useNavigate } from "react-router-dom";
 
 type IProductListItemProps = {
   product: Product;
@@ -8,6 +9,7 @@ type IProductListItemProps = {
 
 function ProductListItem({ product }: IProductListItemProps) {
   const { removeProduct } = useProductActions();
+  const navigate = useNavigate();
 
   return (
     <li key={product.id}>
@@ -17,7 +19,7 @@ function ProductListItem({ product }: IProductListItemProps) {
       {product.categories.map((category) => (
         <span key={category}>{CategoryLabels[category]}</span>
       ))}
-      <button>Edit</button>
+      <button onClick={() => navigate(`product/${product.id}`)}>Edit</button>
       <button onClick={() => removeProduct(product.id)}>Remover</button>
     </li>
   );

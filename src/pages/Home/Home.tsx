@@ -5,10 +5,12 @@ import ProductListItem from "../../features/products/components/ProductListItem/
 import { RootState } from "../../store";
 import useProductActions from "../../features/products/hooks/useProductActions";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { error, items } = useSelector((state: RootState) => state.products);
   const { getAllProducts } = useProductActions();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (items.length === 0) {
@@ -23,6 +25,12 @@ function Home() {
         <p>Manage all your products in one place.</p>
       </header>
       <main>
+        <section>
+          <h5>Add new product</h5>
+          <button onClick={() => navigate("product/new")}>
+            Add new product
+          </button>
+        </section>
         <section>
           {items.length > 0 && (
             <ul>

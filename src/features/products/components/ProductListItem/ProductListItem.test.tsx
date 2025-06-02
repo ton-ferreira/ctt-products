@@ -3,6 +3,7 @@ import { CategoryId, CategoryLabels } from "../../stores/types/categories";
 import { store } from "../../../../store";
 import { Provider } from "react-redux";
 import ProductListItem from "./ProductListItem";
+import { BrowserRouter } from "react-router-dom";
 
 const mockedProduct = {
   id: "c112bd93-7792-4afa-8bea-aa1b6ccdfb75",
@@ -16,7 +17,9 @@ describe("ProductListItem", () => {
   it("should show the products info received by its props", () => {
     render(
       <Provider store={store}>
-        <ProductListItem product={mockedProduct} />
+        <BrowserRouter>
+          <ProductListItem product={mockedProduct} />
+        </BrowserRouter>
       </Provider>
     );
     expect(screen.getByText(mockedProduct.stock)).toBeInTheDocument();

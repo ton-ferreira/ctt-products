@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { createProduct, updateProduct } from "../../features/products/api";
 import { RootState } from "../../store";
 import { Product } from "../../features/products/stores/types/products";
 import ProductForm from "../../features/products/components/ProductForm/ProductForm";
@@ -18,7 +17,7 @@ const ProductDetail = () => {
     undefined
   );
 
-  const { getAllProducts } = useProductActions();
+  const { getAllProducts, editProduct, addNewProduct } = useProductActions();
 
   useEffect(() => {
     const init = async () => {
@@ -40,9 +39,9 @@ const ProductDetail = () => {
     setLoading(true);
     try {
       if (isEdit) {
-        await updateProduct(data);
+        await editProduct(data);
       } else {
-        await createProduct({ ...data, id: crypto.randomUUID() });
+        await addNewProduct({ ...data, id: crypto.randomUUID() });
       }
       navigate("/");
     } catch (err) {

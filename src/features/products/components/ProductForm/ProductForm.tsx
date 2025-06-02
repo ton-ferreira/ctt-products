@@ -49,7 +49,7 @@ function ProductForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>{form.id ? "Editar Produto" : "Adicionar Produto"}</h1>
+      <h1>{form.id ? "Edit Product" : "Add Product"}</h1>
 
       <label>
         Name:
