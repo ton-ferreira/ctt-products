@@ -2,11 +2,14 @@ import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../store";
 import { BrowserRouter } from "react-router-dom";
+import ProductDetail from "./ProductDetail";
 
 function renderProductDetail() {
   return render(
     <Provider store={store}>
-      <BrowserRouter>{/* ... */}</BrowserRouter>
+      <BrowserRouter>
+        <ProductDetail />
+      </BrowserRouter>
     </Provider>
   );
 }
