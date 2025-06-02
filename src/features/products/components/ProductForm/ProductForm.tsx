@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Product } from "../../stores/types/products";
 import { CategoryId, CategoryLabels } from "../../stores/types/categories";
 import "./ProductForm.style.scss";
-import { useNavigate } from "react-router-dom";
 
-interface IProductFormProps {
+interface Props {
   initialData?: Product;
   onSubmit: (data: Product) => void;
   isSubmitting?: boolean;
 }
 
-function ProductForm({
+export default function ProductForm({
   initialData,
   onSubmit,
   isSubmitting,
-}: IProductFormProps) {
+}: Props) {
   const emptyProduct: Product = {
     id: crypto.randomUUID(),
     description: "",
-    price: 0,
-    stock: 0,
+    price: 1,
+    stock: 1,
     categories: [],
   };
   const [form, setForm] = useState<Product>(initialData ?? emptyProduct);
@@ -29,25 +29,33 @@ function ProductForm({
     if (initialData) setForm(initialData);
   }, [initialData]);
 
-  const handleChange =
+  const updateField = (
+    field: keyof Product,
+    value: string | number | CategoryId[]
+  ) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleInputChange =
     (field: keyof Product) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value =
-        field === "price" || field === "stock"
-          ? Number(e.target.value)
-          : e.target.value;
-      setForm((prev: Product) => ({ ...prev, [field]: value }));
+      const value = ["price", "stock"].includes(field)
+        ? Number(e.target.value)
+        : e.target.value;
+      updateField(field, value);
     };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    const id = value as CategoryId;
+    const updated = checked
+      ? [...form.categories, id]
+      : form.categories.filter((c) => c !== id);
+    updateField("categories", updated);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(form);
-  };
-
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const values = Array.from(e.target.selectedOptions).map(
-      (option) => option.value as CategoryId
-    );
-    setForm((prev) => ({ ...prev, categories: values }));
   };
 
   return (
@@ -55,59 +63,73 @@ function ProductForm({
       onSubmit={handleSubmit}
       className="card fade-in product-form-container"
     >
-      <h1>{form.id ? "Edit Product" : "Add Product"}</h1>
+      <h1>{initialData ? "Edit Product" : "Add Product"}</h1>
 
       <label>Name</label>
       <input
-        aria-label="description"
+        required
         type="text"
+        aria-label="description"
         value={form.description}
-        onChange={handleChange("description")}
+        onChange={handleInputChange("description")}
       />
 
       <label>Price</label>
       <input
+        required
         aria-label="price"
         type="number"
         value={form.price}
-        onChange={handleChange("price")}
+        onChange={handleInputChange("price")}
+        inputMode="decimal"
         step="any"
+        min={1}
       />
 
       <label>Stock</label>
       <input
+        required
         aria-label="stock"
         type="number"
         value={form.stock}
-        onChange={handleChange("stock")}
+        onChange={handleInputChange("stock")}
+        inputMode="numeric"
+        min={1}
       />
 
-      <label>Category</label>
-      <select
-        aria-label="categorias"
-        multiple
-        value={form.categories}
-        onChange={handleCategoryChange}
-      >
+      <label>Categories</label>
+      <div className="multi-checkbox-group">
         {Object.entries(CategoryLabels).map(([id, label]) => (
-          <option key={id} value={id}>
+          <label key={id} className="checkbox-option">
+            <input
+              type="checkbox"
+              value={id}
+              checked={form.categories.includes(id as CategoryId)}
+              onChange={handleCategoryChange}
+            />
             {label}
-          </option>
+          </label>
         ))}
-      </select>
+      </div>
 
-      <button
-        disabled={isSubmitting}
-        className="secondary"
-        onClick={() => navigate("/")}
-      >
-        Cancel
-      </button>
-      <button type="submit" disabled={isSubmitting} className="primary">
-        {form.id ? "Save updates" : "Save product"}
-      </button>
+      <div className="product-form-btn-container">
+        <button
+          type="button"
+          className="secondary"
+          disabled={isSubmitting}
+          onClick={() => navigate("/")}
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          className="primary"
+          disabled={isSubmitting}
+          data-testid="submit-btn"
+        >
+          {initialData ? "Save updates" : "Save product"}
+        </button>
+      </div>
     </form>
   );
 }
-
-export default ProductForm;

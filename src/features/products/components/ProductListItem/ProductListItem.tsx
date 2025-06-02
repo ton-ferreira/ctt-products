@@ -3,6 +3,7 @@ import { Product } from "../../stores/types/products";
 import useProductActions from "../../hooks/useProductActions";
 import { useNavigate } from "react-router-dom";
 import "./ProductListItem.style.scss";
+import { formatPrice } from "../../../../utils/formatters";
 
 type IProductListItemProps = {
   product: Product;
@@ -19,7 +20,7 @@ function ProductListItem({ product }: IProductListItemProps) {
       </div>
       <div className="product-item-chip-list">
         <div className="chip">
-          <span>€ {product.price}</span>
+          <span>€ {formatPrice(product.price)}</span>
         </div>
         <div className="chip">
           <span>{product.stock} in stock</span>

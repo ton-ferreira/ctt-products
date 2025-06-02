@@ -4,6 +4,7 @@ import { store } from "../../../../store";
 import { Provider } from "react-redux";
 import ProductListItem from "./ProductListItem";
 import { BrowserRouter } from "react-router-dom";
+import { formatPrice } from "../../../../utils/formatters";
 
 const mockedProduct = {
   id: "c112bd93-7792-4afa-8bea-aa1b6ccdfb75",
@@ -22,11 +23,15 @@ describe("ProductListItem", () => {
         </BrowserRouter>
       </Provider>
     );
-    expect(screen.getByText(mockedProduct.stock)).toBeInTheDocument();
+    expect(
+      screen.getByText(`${mockedProduct.stock} in stock`)
+    ).toBeInTheDocument();
     expect(screen.getByText(mockedProduct.description)).toBeInTheDocument();
     expect(
       screen.getByText(CategoryLabels[CategoryId.Food])
     ).toBeInTheDocument();
-    expect(screen.getByText(`€${mockedProduct.price}`)).toBeInTheDocument();
+    expect(
+      screen.getByText(`€ ${formatPrice(mockedProduct.price)}`)
+    ).toBeInTheDocument();
   });
 });
