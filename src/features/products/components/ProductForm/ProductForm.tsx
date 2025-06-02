@@ -84,7 +84,7 @@ function ProductForm({
 
       <label>Category</label>
       <select
-        aria-label="categorias"
+        aria-label="categories"
         multiple
         value={form.categories}
         onChange={handleCategoryChange}

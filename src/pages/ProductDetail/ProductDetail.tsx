@@ -21,7 +21,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     const init = async () => {
-      if (products.length === 0) {
+      if (isEdit && products.length === 0) {
         await getAllProducts();
       }
     };
@@ -53,7 +53,9 @@ const ProductDetail = () => {
 
   return (
     <main>
-      <p data-testid="product-detail-info">Info</p>
+      <p className="card" data-testid="product-detail-info">
+        Info
+      </p>
       <ProductForm
         initialData={initialData}
         onSubmit={handleSubmit}
