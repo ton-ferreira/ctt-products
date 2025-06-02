@@ -52,7 +52,7 @@ As requested, there are several changes I would do if this was a real / producti
 
  - Redux: I probably wouldn’t use Redux in this case (especially without Redux Toolkit), as there are simpler alternatives with much less boilerplate and complexity. Zustand would likely be a better fit here.
  - Form: The test instructions clearly stated not to use third-party libraries. However, in a real-world scenario, I would use React Hook Form together with Zod for its scalability, flexibility, and strong validation capabilities.
- - Tests: TDD is a great approach to writing robust and maintainable code, but it requires time for proper planning and architecture. Unfortunately, I didn’t have enough free time during the test to fully apply TDD. In a real work environment, I would definitely prioritize it when feasible.
+ - Tests: TDD is a great approach to writing robust and maintainable code, but it requires time for proper planning and architecture. Unfortunately, I didn’t have enough free time during the test days to fully apply TDD. In a real work environment, I would definitely prioritize it when feasible.
 
 ### Assumptions
 - Categories: since it is a 36 char category array (just like the product id), I assumed it is an uuid as well, so I've made an object of 3 uuids simulating categories ids.
