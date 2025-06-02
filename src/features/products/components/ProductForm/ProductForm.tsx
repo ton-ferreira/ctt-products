@@ -4,7 +4,7 @@ import { Product } from "../../stores/types/products";
 import { CategoryId, CategoryLabels } from "../../stores/types/categories";
 import "./ProductForm.style.scss";
 
-interface Props {
+interface IProductFormProps {
   initialData?: Product;
   onSubmit: (data: Product) => void;
   isSubmitting?: boolean;
@@ -14,7 +14,7 @@ export default function ProductForm({
   initialData,
   onSubmit,
   isSubmitting,
-}: Props) {
+}: IProductFormProps) {
   const emptyProduct: Product = {
     id: crypto.randomUUID(),
     description: "",
