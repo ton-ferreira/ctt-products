@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { Product } from "../../stores/types/products";
 import { CategoryId } from "../../stores/types/categories";
 import { UUID } from "crypto";
+import ProductForm from "./ProductForm";
 
 const mockProduct: Product = {
   id: "d6572d5b-ca73-4acd-8122-1c29b12a89ae",
