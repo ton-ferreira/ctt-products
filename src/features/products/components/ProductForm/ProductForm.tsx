@@ -100,6 +100,7 @@ function ProductForm({
         disabled={isSubmitting}
         className="secondary"
         onClick={() => navigate("/")}
+        type="button"
       >
         Cancel
       </button>
