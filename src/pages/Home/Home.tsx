@@ -7,6 +7,7 @@ import useProductActions from "../../features/products/hooks/useProductActions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.style.scss";
+
 function Home() {
   const { error, items } = useSelector((state: RootState) => state.products);
   const { getAllProducts } = useProductActions();

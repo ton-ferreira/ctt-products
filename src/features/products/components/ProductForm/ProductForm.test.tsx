@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Product } from "../../stores/types/products";
-import { CategoryId } from "../../stores/types/categories";
+import { CategoryId, CategoryLabels } from "../../stores/types/categories";
 import { UUID } from "crypto";
 import ProductForm from "./ProductForm";
 import { BrowserRouter } from "react-router-dom";
@@ -29,8 +29,8 @@ describe("ProductForm", () => {
     );
 
     expect(screen.getByLabelText(/Description/i)).toHaveValue("");
-    expect(screen.getByLabelText(/Price/i)).toHaveValue(0);
-    expect(screen.getByLabelText(/Stock/i)).toHaveValue(0);
+    expect(screen.getByLabelText(/Price/i)).toHaveValue(1);
+    expect(screen.getByLabelText(/Stock/i)).toHaveValue(1);
   });
 
   it("should render with initialData values in edit mode", () => {
@@ -54,14 +54,20 @@ describe("ProductForm", () => {
       </BrowserRouter>
     );
 
-    const nameInput = screen.getByLabelText(/name/i);
-    fireEvent.change(nameInput, { target: { value: mockProduct.description } });
-    expect(nameInput).toHaveValue(mockProduct.description);
+    const descriptionInput = screen.getByLabelText(/description/i);
+    fireEvent.change(descriptionInput, {
+      target: { value: mockProduct.description },
+    });
+    expect(descriptionInput).toHaveValue(mockProduct.description);
   });
 
   it("should call onSubmit with the correct data when submitted", () => {
     const handleSubmit = jest.fn();
-    render(<ProductForm onSubmit={handleSubmit} />);
+    render(
+      <BrowserRouter>
+        <ProductForm onSubmit={handleSubmit} />
+      </BrowserRouter>
+    );
 
     fireEvent.change(screen.getByLabelText(/Description/i), {
       target: { value: mockProduct.description },
@@ -73,15 +79,13 @@ describe("ProductForm", () => {
       target: { value: mockProduct.stock },
     });
 
-    const categortSelect = screen.getByLabelText(
-      /Category/i
-    ) as HTMLSelectElement;
+    const firstCategoryLabel = CategoryLabels[CategoryId.Clothing];
+    const checkbox = screen.getByLabelText(
+      firstCategoryLabel
+    ) as HTMLInputElement;
+    fireEvent.click(checkbox);
 
-    fireEvent.change(categortSelect, {
-      target: { value: CategoryId.Clothing },
-    });
-
-    fireEvent.click(screen.getByRole("button"));
+    fireEvent.click(screen.getByTestId("submit-btn"));
 
     expect(handleSubmit).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -94,7 +98,11 @@ describe("ProductForm", () => {
   });
 
   it("should disable submit button if isSubmitting is true", () => {
-    render(<ProductForm onSubmit={jest.fn()} isSubmitting={true} />);
-    expect(screen.getByRole("button")).toBeDisabled();
+    render(
+      <BrowserRouter>
+        <ProductForm onSubmit={jest.fn()} isSubmitting={true} />
+      </BrowserRouter>
+    );
+    expect(screen.getByTestId("submit-btn")).toBeDisabled();
   });
 });

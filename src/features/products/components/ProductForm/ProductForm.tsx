@@ -38,7 +38,9 @@ export default function ProductForm({
 
   const handleInputChange =
     (field: keyof Product) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.target;
+      const value = ["price", "stock"].includes(field)
+        ? Number(e.target.value)
+        : e.target.value;
       updateField(field, value);
     };
 
@@ -75,6 +77,7 @@ export default function ProductForm({
       <label>Price</label>
       <input
         required
+        aria-label="price"
         type="number"
         value={form.price}
         onChange={handleInputChange("price")}
@@ -86,6 +89,7 @@ export default function ProductForm({
       <label>Stock</label>
       <input
         required
+        aria-label="stock"
         type="number"
         value={form.stock}
         onChange={handleInputChange("stock")}
@@ -117,7 +121,12 @@ export default function ProductForm({
         >
           Cancel
         </button>
-        <button type="submit" className="primary" disabled={isSubmitting}>
+        <button
+          type="submit"
+          className="primary"
+          disabled={isSubmitting}
+          data-testid="submit-btn"
+        >
           {initialData ? "Save updates" : "Save product"}
         </button>
       </div>

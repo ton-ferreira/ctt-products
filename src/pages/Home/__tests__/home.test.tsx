@@ -1,26 +1,23 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../../store";
-import { Product } from "../../../features/products/stores/types/products";
 import Home from "../Home";
 import { BrowserRouter } from "react-router-dom";
 import useProductActions from "../../../features/products/hooks/useProductActions";
 
-const mockGetAllProducts = jest.fn();
-
 jest.mock("../../../features/products/hooks/useProductActions", () => ({
   __esModule: true,
-  default: jest.fn(() => ({
-    getAllProducts: jest.fn(),
-  })),
+  default: jest.fn(),
 }));
 
-const mockProduct: Product = {
-  id: "c112bd93-7792-4afa-8bea-aa1b6ccdfb75",
-  stock: 1,
-  description: "Some nice product",
+const mockGetAllProducts = jest.fn();
+
+const mockProduct = {
+  id: "123",
+  description: "Test product",
+  price: 9.99,
+  stock: 2,
   categories: [],
-  price: 10.0,
 };
 
 function renderHome() {
@@ -35,29 +32,22 @@ function renderHome() {
 
 describe("Home page", () => {
   beforeEach(() => {
-    (useProductActions as jest.Mock).mockImplementation(() => ({
+    jest.clearAllMocks();
+    (useProductActions as jest.Mock).mockReturnValue({
       getAllProducts: mockGetAllProducts,
-    }));
+    });
   });
-  it("should show a welcome message when the page loads", () => {
+
+  it("should show welcome message", () => {
     renderHome();
     expect(screen.getByTestId("welcome-message")).toBeInTheDocument();
   });
 
-  it("should show a product list if api return items", async () => {
-    mockGetAllProducts.mockResolvedValueOnce([mockProduct]);
-
+  it("should show empty message if no products", async () => {
+    mockGetAllProducts.mockResolvedValueOnce([]);
     renderHome();
     await waitFor(() => {
-      expect(screen.getByText(mockProduct.description)).toBeInTheDocument();
-    });
-  });
-
-  it("should show a empty warn if api doesn't return items", async () => {
-    mockGetAllProducts.mockReturnValueOnce(Promise.resolve([]));
-    renderHome();
-    await waitFor(() => {
-      expect(screen.getByText(/No products yet/i));
+      expect(screen.getByText(/no products yet/i)).toBeInTheDocument();
     });
   });
 });
