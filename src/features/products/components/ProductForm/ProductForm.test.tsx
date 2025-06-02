@@ -3,6 +3,7 @@ import { Product } from "../../stores/types/products";
 import { CategoryId } from "../../stores/types/categories";
 import { UUID } from "crypto";
 import ProductForm from "./ProductForm";
+import { BrowserRouter } from "react-router-dom";
 
 const mockProduct: Product = {
   id: "d6572d5b-ca73-4acd-8122-1c29b12a89ae",
@@ -21,7 +22,11 @@ describe("ProductForm", () => {
   });
 
   it("should render empty fields when no initialData is provided", () => {
-    render(<ProductForm onSubmit={jest.fn()} />);
+    render(
+      <BrowserRouter>
+        <ProductForm onSubmit={jest.fn()} />
+      </BrowserRouter>
+    );
 
     expect(screen.getByLabelText(/Description/i)).toHaveValue("");
     expect(screen.getByLabelText(/Price/i)).toHaveValue(0);
@@ -29,7 +34,11 @@ describe("ProductForm", () => {
   });
 
   it("should render with initialData values in edit mode", () => {
-    render(<ProductForm initialData={mockProduct} onSubmit={jest.fn()} />);
+    render(
+      <BrowserRouter>
+        <ProductForm initialData={mockProduct} onSubmit={jest.fn()} />
+      </BrowserRouter>
+    );
 
     expect(screen.getByLabelText(/Description/i)).toHaveValue(
       mockProduct.description
@@ -39,7 +48,11 @@ describe("ProductForm", () => {
   });
 
   it("should allow typing into the fields", () => {
-    render(<ProductForm onSubmit={jest.fn()} />);
+    render(
+      <BrowserRouter>
+        <ProductForm onSubmit={jest.fn()} />
+      </BrowserRouter>
+    );
 
     const nameInput = screen.getByLabelText(/name/i);
     fireEvent.change(nameInput, { target: { value: mockProduct.description } });

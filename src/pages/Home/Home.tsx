@@ -6,7 +6,7 @@ import { RootState } from "../../store";
 import useProductActions from "../../features/products/hooks/useProductActions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./Home.style.scss";
 function Home() {
   const { error, items } = useSelector((state: RootState) => state.products);
   const { getAllProducts } = useProductActions();
@@ -19,19 +19,21 @@ function Home() {
   }, []);
 
   return (
-    <>
+    <div>
       <header>
         <h2 data-testid="welcome-message">Welcome to CTT Products!</h2>
         <p>Manage all your products in one place.</p>
       </header>
-      <main>
-        <section>
-          <h5>Add new product</h5>
-          <button onClick={() => navigate("product/new")}>
-            Add new product
-          </button>
+      <main className="home-container">
+        <section className="card product-add-container">
+          <span>Your Products</span>
+          <div>
+            <button className="primary" onClick={() => navigate("product/new")}>
+              Add new product
+            </button>
+          </div>
         </section>
-        <section>
+        <section className="card">
           {items.length > 0 && (
             <ul>
               {items.map((product) => (
@@ -48,7 +50,7 @@ function Home() {
           {error && <ErrorCard errorMessage="error" />}
         </section>
       </main>
-    </>
+    </div>
   );
 }
 
