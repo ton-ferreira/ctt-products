@@ -14,7 +14,7 @@ function LoadingCard() {
     <>
       {loading && (
         <div className="fade-in loading-card-container">
-          <span className="loading-card">load in progress...</span>
+          <span className="loading-card">Load in progress...</span>
         </div>
       )}
     </>

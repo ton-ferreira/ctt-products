@@ -1,4 +1,10 @@
 .product-form-container {
   display: grid;
-  gap: 0.5rem;
+  gap: 1rem;
+}
+
+.product-form-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
 }

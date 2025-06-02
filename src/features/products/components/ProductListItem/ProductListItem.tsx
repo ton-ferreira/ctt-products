@@ -12,6 +12,12 @@ function ProductListItem({ product }: IProductListItemProps) {
   const { removeProduct } = useProductActions();
   const navigate = useNavigate();
 
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2 }).format(
+      price
+    );
+  };
+
   return (
     <li key={product.id} className="product-item-info-container ">
       <div>
@@ -19,7 +25,7 @@ function ProductListItem({ product }: IProductListItemProps) {
       </div>
       <div className="product-item-chip-list">
         <div className="chip">
-          <span>€ {product.price}</span>
+          <span>€ {formatPrice(product.price)}</span>
         </div>
         <div className="chip">
           <span>{product.stock} in stock</span>
