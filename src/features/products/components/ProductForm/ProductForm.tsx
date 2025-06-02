@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Product } from "../../stores/types/products";
 import { CategoryId, CategoryLabels } from "../../stores/types/categories";
+import "./ProductForm.style.scss";
+import { useNavigate } from "react-router-dom";
 
 interface IProductFormProps {
   initialData?: Product;
@@ -21,6 +23,7 @@ function ProductForm({
     categories: [],
   };
   const [form, setForm] = useState<Product>(initialData ?? emptyProduct);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (initialData) setForm(initialData);
@@ -48,56 +51,59 @@ function ProductForm({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>{form.id ? "Editar Produto" : "Adicionar Produto"}</h1>
+    <form
+      onSubmit={handleSubmit}
+      className="card fade-in product-form-container"
+    >
+      <h1>{form.id ? "Edit Product" : "Add Product"}</h1>
 
-      <label>
-        Name:
-        <input
-          aria-label="description"
-          type="text"
-          value={form.description}
-          onChange={handleChange("description")}
-        />
-      </label>
+      <label>Name</label>
+      <input
+        aria-label="description"
+        type="text"
+        value={form.description}
+        onChange={handleChange("description")}
+      />
 
-      <label>
-        Price:
-        <input
-          aria-label="price"
-          type="number"
-          value={form.price}
-          onChange={handleChange("price")}
-        />
-      </label>
+      <label>Price</label>
+      <input
+        aria-label="price"
+        type="number"
+        value={form.price}
+        onChange={handleChange("price")}
+        step="any"
+      />
 
-      <label>
-        Stock:
-        <input
-          aria-label="stock"
-          type="number"
-          value={form.stock}
-          onChange={handleChange("stock")}
-        />
-      </label>
+      <label>Stock</label>
+      <input
+        aria-label="stock"
+        type="number"
+        value={form.stock}
+        onChange={handleChange("stock")}
+      />
 
-      <label>
-        Category:
-        <select
-          aria-label="categorias"
-          multiple
-          value={form.categories}
-          onChange={handleCategoryChange}
-        >
-          {Object.entries(CategoryLabels).map(([id, label]) => (
-            <option key={id} value={id}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </label>
+      <label>Category</label>
+      <select
+        aria-label="categorias"
+        multiple
+        value={form.categories}
+        onChange={handleCategoryChange}
+      >
+        {Object.entries(CategoryLabels).map(([id, label]) => (
+          <option key={id} value={id}>
+            {label}
+          </option>
+        ))}
+      </select>
 
-      <button type="submit" disabled={isSubmitting}>
+      <button
+        disabled={isSubmitting}
+        className="secondary"
+        onClick={() => navigate("/")}
+      >
+        Cancel
+      </button>
+      <button type="submit" disabled={isSubmitting} className="primary">
         {form.id ? "Save updates" : "Save product"}
       </button>
     </form>

@@ -5,10 +5,12 @@ import ProductListItem from "../../features/products/components/ProductListItem/
 import { RootState } from "../../store";
 import useProductActions from "../../features/products/hooks/useProductActions";
 import { useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
+import "./Home.style.scss";
 function Home() {
   const { error, items } = useSelector((state: RootState) => state.products);
   const { getAllProducts } = useProductActions();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (items.length === 0) {
@@ -17,13 +19,21 @@ function Home() {
   }, []);
 
   return (
-    <>
+    <div>
       <header>
         <h2 data-testid="welcome-message">Welcome to CTT Products!</h2>
         <p>Manage all your products in one place.</p>
       </header>
-      <main>
-        <section>
+      <main className="home-container">
+        <section className="card product-add-container">
+          <h3>Your Products</h3>
+          <div>
+            <button className="primary" onClick={() => navigate("product/new")}>
+              Add new product
+            </button>
+          </div>
+        </section>
+        <section className="card">
           {items.length > 0 && (
             <ul>
               {items.map((product) => (
@@ -40,7 +50,7 @@ function Home() {
           {error && <ErrorCard errorMessage="error" />}
         </section>
       </main>
-    </>
+    </div>
   );
 }
 

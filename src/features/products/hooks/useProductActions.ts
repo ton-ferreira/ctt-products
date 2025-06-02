@@ -20,7 +20,7 @@ const useProductActions = () => {
 
   const addNewProduct = async (product: Product) => {
     try {
-      setLoading(true);
+      dispatch(setLoading(true));
       await createProduct(product);
       dispatch(addProduct(product));
     } catch {
@@ -34,7 +34,7 @@ const useProductActions = () => {
 
   const removeProduct = async (productId: string) => {
     try {
-      setLoading(true);
+      dispatch(setLoading(true));
       await apiDeleteProduct(productId);
       dispatch(deleteProduct(productId));
     } catch {
@@ -48,7 +48,7 @@ const useProductActions = () => {
 
   const editProduct = async (product: Product) => {
     try {
-      setLoading(true);
+      dispatch(setLoading(true));
       await apiUpdateProduct(product);
       dispatch(updateProduct(product));
     } catch {
@@ -62,7 +62,7 @@ const useProductActions = () => {
 
   const getAllProducts = async () => {
     try {
-      setLoading(true);
+      dispatch(setLoading(true));
       const products = await fetchProducts();
       dispatch(setProducts(products));
     } catch {
