@@ -11,7 +11,7 @@ let mockProducts: Product[] = [
   },
 ];
 
-const fakeLoadingDelay = () => new Promise((res) => setTimeout(res, 350));
+const fakeLoadingDelay = () => new Promise((res) => setTimeout(res, 750));
 
 export const fetchProducts = async (): Promise<Product[]> => {
   await fakeLoadingDelay();

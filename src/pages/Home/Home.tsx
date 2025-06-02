@@ -26,7 +26,7 @@ function Home() {
       </header>
       <main className="home-container">
         <section className="card product-add-container">
-          <span>Your Products</span>
+          <h3>Your Products</h3>
           <div>
             <button className="primary" onClick={() => navigate("product/new")}>
               Add new product

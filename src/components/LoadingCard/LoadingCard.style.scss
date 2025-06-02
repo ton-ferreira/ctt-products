@@ -1,0 +1,17 @@
+.loading-card-container {
+  position: absolute;
+  display: flex;
+  justify-content: center; // horizontally centers single line items
+  width: 100%;
+  z-index: 9;
+  margin: 0.5rem;
+}
+
+.loading-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  background-color: var(--secondary-color);
+  color: white;
+}

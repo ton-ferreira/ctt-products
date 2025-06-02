@@ -71,6 +71,7 @@ function ProductForm({
         type="number"
         value={form.price}
         onChange={handleChange("price")}
+        step="any"
       />
 
       <label>Stock</label>
